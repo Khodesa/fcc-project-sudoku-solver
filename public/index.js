@@ -1,7 +1,8 @@
 const textArea = document.getElementById("text-input");
 const coordInput = document.getElementById("coord");
 const valInput = document.getElementById("val");
-const errorMsg = document.getElementById("error");
+const error = document.getElementById("error");
+const errorMsg = document.getElementById("error-msg");
 
 document.addEventListener("DOMContentLoaded", () => {
   textArea.value =
@@ -56,7 +57,12 @@ async function getChecked() {
     body: JSON.stringify(stuff)
   })
   const parsed = await data.json();
-  errorMsg.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
+  if (parsed.error) {
+    errorMsg.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
+    return
+  } else {
+    error.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
+  }
 }
 
 
